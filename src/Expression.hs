@@ -14,7 +14,7 @@ instance Num a => Num (Expression a) where
     a - b = BinOp "-" a b 
     a * b = BinOp "*" a b 
 
-eval :: Expression a -> [(String, a)] -> a
+eval :: Num a => Expression a -> [(String, a)] -> a
 eval (Const n) _ = n
 eval (Var s) vals = find s vals where
     find s ((name, value):t) 
