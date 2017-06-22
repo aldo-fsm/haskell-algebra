@@ -24,3 +24,12 @@ eval (BinOp o e1 e2) vals = case o of
     "+" -> (eval e1 vals) + (eval e2 vals)
     "-" -> (eval e1 vals) - (eval e2 vals)
     "*" -> (eval e1 vals) * (eval e2 vals)
+
+diff (Const n) _ = Const 0
+diff (Var v) (Var x) 
+    | x /= v = Const 0
+    | x == v = Const 1
+diff (BinOp o e1 e2) x = case o of
+    "+" -> (diff e1 x) + (diff e2 x)
+    "-" -> (diff e1 x) - (diff e2 x)
+    "*" -> (diff e1 x) * e2 + e1 * (diff e2 x)
